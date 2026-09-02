@@ -12,7 +12,7 @@
 
   --text: #f4ebe6;
   --text-muted: #c6b3c2;
-  --text-faint: #3d373c;
+  --text-faint: #7a6a77;
 
   --accent-rose: #dd9296;
   --accent-rose-strong: #e7abae;
@@ -248,6 +248,17 @@ input[type="checkbox"]:focus-visible {
   font-size: 0.85rem;
   color: var(--accent-rose-strong);
   margin-bottom: 10px;
+}
+
+.question-block {
+  padding-bottom: 28px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--hairline);
+}
+.question-block:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
 }
 
 .question-text {

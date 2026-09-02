@@ -53,12 +53,22 @@
       <div class="reminder-banner">Reminder: <strong>Open</strong> means neutral-to-curious, not reluctance or obligation.</div>
 
       <div class="panel">
-        <div class="category-tag" id="question-category"></div>
-        <div class="question-text" id="question-text"></div>
-        <div class="question-note" id="question-note" style="display:none;"></div>
-
-        <div class="answer-grid" id="answer-grid"></div>
+        <div class="category-tag" id="page-category"></div>
+        <div id="questions-list"><!-- JS injects one .question-block per question in this category, see comment below --></div>
       </div>
+      <!--
+        Expected shape per question, injected by quiz.js into #questions-list:
+
+        <div class="question-block" data-question-id="role_costumes">
+          <div class="question-text">...</div>
+          <div class="question-note" style="display:none;">...</div>
+          <div class="answer-grid">...</div>
+        </div>
+
+        answer-btn elements inside each block need data-question-id (not a
+        shared #answer-grid id) so click handlers know which question they
+        belong to.
+      -->
 
       <div class="btn-row">
         <button id="back-btn" class="btn btn-secondary">Back</button>

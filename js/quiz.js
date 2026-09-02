@@ -37,8 +37,8 @@ const draftKey = `quiz_draft_${sessionId}_${role}`;
 
 let categories = [];
 let questions = [];
-let orderedQuestions = [];
-let currentIndex = 0;
+let pages = []; // [{ category, items: [question, ...] }, ...]
+let currentIndex = 0; // now indexes into `pages`, not individual questions
 let answers = {};
 let nicknames = { A: "your partner", B: "your partner" };
 
@@ -72,24 +72,33 @@ async function init() {
     return;
   }
 
-  orderedQuestions = orderByCategory(questions, categories);
+  pages = buildPages(questions, categories);
 
   const draft = loadDraft();
   if (draft) {
     answers = draft.answers || {};
-    currentIndex = Math.min(draft.index || 0, orderedQuestions.length - 1);
+    currentIndex = Math.min(draft.index || 0, pages.length - 1);
   }
 
   showOnly("consent");
 }
 
-function orderByCategory(qs, cats) {
-  const rank = new Map(cats.map((c, i) => [c, i]));
-  return [...qs].sort((a, b) => {
-    const ra = rank.has(a.category) ? rank.get(a.category) : cats.length;
-    const rb = rank.has(b.category) ? rank.get(b.category) : cats.length;
-    return ra - rb;
+// Groups questions into one page per category, in category order (any
+// question whose category isn't in categories.json lands on a trailing
+// "More" page).
+function buildPages(qs, cats) {
+  const byCategory = new Map(cats.map((c) => [c, []]));
+  const other = [];
+  qs.forEach((q) => {
+    const bucket = byCategory.has(q.category) ? byCategory.get(q.category) : other;
+    bucket.push(q);
   });
+  const result = [];
+  for (const [category, items] of byCategory) {
+    if (items.length > 0) result.push({ category, items });
+  }
+  if (other.length > 0) result.push({ category: "More", items: other });
+  return result;
 }
 
 function loadDraft() {
@@ -117,32 +126,52 @@ checkbox.addEventListener("change", () => {
 });
 beginBtn.addEventListener("click", () => {
   showOnly("quiz");
-  renderQuestion();
+  renderPage();
 });
 
 // --- Quiz rendering ---
-const answerGrid = document.getElementById("answer-grid");
+const questionsList = document.getElementById("questions-list");
+const pageCategoryEl = document.getElementById("page-category");
 const backBtn = document.getElementById("back-btn");
 const nextBtn = document.getElementById("next-btn");
 
-function renderQuestion() {
-  const q = orderedQuestions[currentIndex];
-  const total = orderedQuestions.length;
+function renderPage() {
+  const page = pages[currentIndex];
+  const totalPages = pages.length;
 
-  document.getElementById("progress-fill").style.width = `${(currentIndex / total) * 100}%`;
-  document.getElementById("progress-label").textContent = `Question ${currentIndex + 1} of ${total}`;
-  document.getElementById("question-category").textContent = q.category;
-  document.getElementById("question-text").textContent = resolveText(q, role, nicknames);
+  document.getElementById("progress-fill").style.width = `${(currentIndex / totalPages) * 100}%`;
+  document.getElementById("progress-label").textContent = `Section ${currentIndex + 1} of ${totalPages}`;
+  pageCategoryEl.textContent = page.category;
 
-  const noteEl = document.getElementById("question-note");
+  questionsList.innerHTML = "";
+  page.items.forEach((q) => {
+    questionsList.appendChild(buildQuestionBlock(q));
+  });
+
+  backBtn.disabled = currentIndex === 0;
+  updateNextState();
+  nextBtn.textContent = currentIndex === totalPages - 1 ? "Finish" : "Next";
+}
+
+function buildQuestionBlock(q) {
+  const block = document.createElement("div");
+  block.className = "question-block";
+  block.dataset.questionId = q.id;
+
+  const textEl = document.createElement("div");
+  textEl.className = "question-text";
+  textEl.textContent = resolveText(q, role, nicknames);
+  block.appendChild(textEl);
+
   if (q.note) {
+    const noteEl = document.createElement("div");
+    noteEl.className = "question-note";
     noteEl.textContent = q.note;
-    noteEl.style.display = "block";
-  } else {
-    noteEl.style.display = "none";
+    block.appendChild(noteEl);
   }
 
-  answerGrid.innerHTML = "";
+  const grid = document.createElement("div");
+  grid.className = "answer-grid";
   ANSWER_OPTIONS.forEach((opt) => {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -151,37 +180,41 @@ function renderQuestion() {
     btn.dataset.code = opt.code;
     if (answers[q.id] === opt.code) btn.classList.add("selected");
     btn.innerHTML = `<span class="label">${opt.label}</span>`;
-    btn.addEventListener("click", () => selectAnswer(q.id, opt.code));
-    answerGrid.appendChild(btn);
+    btn.addEventListener("click", () => selectAnswer(q.id, opt.code, grid));
+    grid.appendChild(btn);
   });
+  block.appendChild(grid);
 
-  backBtn.disabled = currentIndex === 0;
-  nextBtn.disabled = !answers[q.id];
-  nextBtn.textContent = currentIndex === total - 1 ? "Finish" : "Next";
+  return block;
 }
 
-function selectAnswer(qId, code) {
+function updateNextState() {
+  const page = pages[currentIndex];
+  nextBtn.disabled = !page.items.every((q) => answers[q.id]);
+}
+
+function selectAnswer(qId, code, grid) {
   answers[qId] = code;
   saveDraft();
-  [...answerGrid.children].forEach((btn) => {
+  [...grid.children].forEach((btn) => {
     btn.classList.toggle("selected", btn.dataset.code === code);
   });
-  nextBtn.disabled = false;
+  updateNextState();
 }
 
 backBtn.addEventListener("click", () => {
   if (currentIndex === 0) return;
   currentIndex -= 1;
   saveDraft();
-  renderQuestion();
+  renderPage();
 });
 
 nextBtn.addEventListener("click", async () => {
-  const isLast = currentIndex === orderedQuestions.length - 1;
+  const isLast = currentIndex === pages.length - 1;
   if (!isLast) {
     currentIndex += 1;
     saveDraft();
-    renderQuestion();
+    renderPage();
     return;
   }
   await submitQuiz();
