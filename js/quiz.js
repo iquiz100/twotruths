@@ -136,6 +136,8 @@ const backBtn = document.getElementById("back-btn");
 const nextBtn = document.getElementById("next-btn");
 
 function renderPage() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   const page = pages[currentIndex];
   const totalPages = pages.length;
 
