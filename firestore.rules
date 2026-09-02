@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /sessions/{sessionId} {
+      // No login exists in this app — the session link's random ID is the
+      // only credential. Reads/writes to a KNOWN document ID are allowed;
+      // listing/enumerating the collection is denied by default because no
+      // `list` rule is granted below. Don't add one.
+      allow get: if true;
+      allow update: if true;
+      allow create: if request.resource.data.keys().hasAll(
+        ['nicknameA', 'nicknameB', 'createdAt', 'completedA', 'completedB']
+      );
+      allow delete: if false;
+      allow list: if false;
+    }
+  }
+}

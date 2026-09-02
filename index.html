@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Start a quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="mark">Two Truths</div>
+    </header>
+
+    <h1>Find out what you're both into</h1>
+    <p class="lede">
+      Each of you answers privately, on your own phone. Once you've both
+      finished, you'll each see a private results page showing only the
+      things you're both open to. Nothing is shared until both of you are done.
+    </p>
+
+    <div id="setup-panel" class="panel">
+      <form id="setup-form">
+        <label for="nickname-a">Your nickname</label>
+        <input type="text" id="nickname-a" maxlength="40" required autocomplete="off" />
+
+        <label for="nickname-b">Your partner's nickname</label>
+        <input type="text" id="nickname-b" maxlength="40" required autocomplete="off" />
+        <div class="field-hint">Just for labeling links — these aren't shown to anyone else.</div>
+
+        <button type="submit" class="btn btn-primary" id="create-btn">Create your quiz links</button>
+      </form>
+    </div>
+
+    <div id="links-panel" class="panel panel-raised" style="display:none;">
+      <h2>You're set up</h2>
+      <p class="lede" style="margin-bottom:20px;">
+        Send your partner their link. Keep yours. Both links only work for
+        this one session — don't share them anywhere public.
+      </p>
+
+      <label>Your link</label>
+      <input type="text" id="link-a" readonly />
+      <button type="button" class="btn btn-secondary" data-copy="link-a" style="margin-bottom:20px;">Copy your link</button>
+
+      <label>Your partner's link</label>
+      <input type="text" id="link-b" readonly />
+      <button type="button" class="btn btn-secondary" data-copy="link-b">Copy partner's link</button>
+
+      <div class="btn-row">
+        <a id="go-link" class="btn btn-primary" href="#">Start your quiz now</a>
+      </div>
+    </div>
+
+    <div id="error-panel" class="panel" style="display:none;">
+      <p id="error-text" style="color:var(--accent-garnet); margin:0;"></p>
+    </div>
+
+    <footer class="site-footer">
+      <p>Links are unguessable but not password-protected. Treat them like you'd treat a shared photo — private between the two of you.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="js/entry.js"></script>
+</body>
+</html>

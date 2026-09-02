@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div class="mark">Two Truths</div>
+    </header>
+
+    <div id="loading-panel" class="panel">
+      <p style="margin:0; color:var(--text-muted);">Loading...</p>
+    </div>
+
+    <div id="error-panel" class="panel" style="display:none;">
+      <p id="error-text" style="color:var(--accent-garnet); margin:0;"></p>
+    </div>
+
+    <div id="already-done-panel" class="panel" style="display:none;">
+      <h2>You've already completed this quiz</h2>
+      <p class="lede">Your answers are saved. Check back on your results page any time.</p>
+      <a id="already-done-results-link" class="btn btn-primary" href="#">View your results page</a>
+    </div>
+
+    <div id="consent-panel" class="panel" style="display:none;">
+      <h1>Before you start</h1>
+      <p class="lede">Six quick things:</p>
+      <ul class="consent-list">
+        <li><strong>Yes</strong> means you actively want this.</li>
+        <li><strong>Open</strong> means genuinely neutral-to-curious — not obligation, not "I'll do it if they really want to." If you feel any reluctance, dread, or "ehh, not really," that's a <strong>No</strong>, not an Open.</li>
+        <li>The <strong>(fantasy)</strong> versions of Yes and Open are for things that appeal to you as an idea, but that you don't actually want to do in real life.</li>
+        <li><strong>No</strong> and <strong>Never</strong> both simply keep an item out of your shared results — your partner won't see which one you picked, or that you picked either.</li>
+        <li><strong>Never</strong> exists so a hard boundary never gets mistaken for something worth gently revisiting. Use it for anything that's a genuine line for you.</li>
+        <li>Answer for yourself, honestly — not for what you think will please your partner or make a better match.</li>
+      </ul>
+      <div class="consent-check">
+        <input type="checkbox" id="consent-checkbox" />
+        <label for="consent-checkbox">I understand the difference between Open and Yes, and I'll answer honestly.</label>
+      </div>
+      <button id="begin-btn" class="btn btn-primary" disabled>Begin</button>
+    </div>
+
+    <div id="quiz-panel" style="display:none;">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label"></div>
+
+      <div class="reminder-banner">Reminder: <strong>Open</strong> means curious, not obligated.</div>
+
+      <div class="panel">
+        <div class="category-tag" id="question-category"></div>
+        <div class="question-text" id="question-text"></div>
+        <div class="question-note" id="question-note" style="display:none;"></div>
+
+        <div class="answer-grid" id="answer-grid"></div>
+      </div>
+
+      <div class="btn-row">
+        <button id="back-btn" class="btn btn-secondary">Back</button>
+        <button id="next-btn" class="btn btn-primary" disabled>Next</button>
+      </div>
+    </div>
+
+    <div id="done-panel" class="panel panel-raised" style="display:none;">
+      <h2>All done</h2>
+      <p class="lede" id="done-message"></p>
+      <label hidden>Your results link</label>
+      <input type="text" id="results-link" readonly hidden/>
+      <div class="btn-row">
+        <a id="results-go-link" class="btn btn-primary" href="#">See results</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/quiz.js"></script>
+</body>
+</html>

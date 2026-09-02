@@ -1,0 +1,47 @@
+[
+  { "id": "comm_checkin",   "category": "Communication & Aftercare", "text": "Doing verbal check-ins during an activity (e.g. asking \"how's this feeling?\")" },
+  { "id": "comm_safeword",  "category": "Communication & Aftercare", "text": "Using a dedicated safe word or signal system" },
+  { "id": "comm_debrief",   "category": "Communication & Aftercare", "text": "Talking through what worked and what didn't afterward" },
+
+  { "id": "sens_temperature", "category": "Sensory & Physical Touch", "text": "Temperature play (ice, warm wax, etc.)" },
+  { "id": "sens_blindfold",   "category": "Sensory & Physical Touch", "text": "Using a blindfold" },
+  { "id": "sens_massage",     "category": "Sensory & Physical Touch", "text": "Extended sensual massage as its own activity, not just foreplay" },
+
+  { "id": "toy_vibrator", "category": "Toys & Tech", "text": "Using a vibrator together" },
+  { "id": "toy_remote",   "category": "Toys & Tech", "text": "App-controlled or remote-control toys" },
+  { "id": "toy_shopping", "category": "Toys & Tech", "text": "Shopping for new toys together" },
+
+  { "id": "role_costume", "category": "Roleplay & Power Dynamics", "text": "Costumes or characters as part of roleplay" },
+  { "id": "role_power",   "category": "Roleplay & Power Dynamics", "text": "Light power exchange (one partner taking a more directive role)" },
+  { "id": "role_praise",  "category": "Roleplay & Power Dynamics", "text": "Praise-focused dirty talk" },
+
+  { "id": "exhib_overheard", "category": "Exhibitionism & Voyeurism", "text": "Sex with the possibility of being overheard (thin walls, open windows)" },
+  { "id": "exhib_public",    "category": "Exhibitionism & Voyeurism", "text": "Sexual activity in a public or semi-public place" },
+  { "id": "voy_watch",       "category": "Exhibitionism & Voyeurism", "text": "Watching another couple have sex" },
+  { "id": "voy_watched",     "category": "Exhibitionism & Voyeurism", "text": "Being watched by someone else while having sex" },
+
+  { "id": "enm_general",    "category": "Non-Monogamy — Philosophy", "text": "Being open to non-monogamy as a concept, even if not acting on it soon" },
+  { "id": "enm_jealousy",   "category": "Non-Monogamy — Philosophy", "text": "Working through jealousy together as it comes up, rather than avoiding the topic" },
+  { "id": "enm_compersion", "category": "Non-Monogamy — Philosophy", "text": "Feeling genuine happiness (compersion) about a partner's other connection" },
+
+  { "id": "enm_soft_swap", "category": "Non-Monogamy — Specific Structures", "text": "Soft swap (touching/making out with others, no penetrative sex) with another couple" },
+  { "id": "enm_full_swap", "category": "Non-Monogamy — Specific Structures", "text": "Full swap with another couple" },
+  { "id": "enm_threesome", "category": "Non-Monogamy — Specific Structures", "text": "A threesome with someone outside the relationship" },
+  { "id": "enm_outside",   "category": "Non-Monogamy — Specific Structures", "text": "One or both partners having an ongoing separate outside partner" },
+
+  { "id": "enm_hotwife", "category": "Non-Monogamy — Advanced Dynamics", "text": "A hotwife-style dynamic, with the other partner's enthusiastic involvement and support" },
+  { "id": "enm_cuck",    "category": "Non-Monogamy — Advanced Dynamics", "text": "Cuckolding/cuckqueaning dynamics (arousal tied to a partner being with someone else, sometimes with denial or humiliation elements)" },
+  { "id": "enm_bull",    "category": "Non-Monogamy — Advanced Dynamics", "text": "Involving a regular third partner in an ongoing dynamic" },
+
+  { "id": "loc_outdoors", "category": "Locations & Settings", "text": "Sex outdoors (backyard, campsite, trail)" },
+  { "id": "loc_hotel",    "category": "Locations & Settings", "text": "A hotel getaway planned specifically around sex" },
+  { "id": "loc_club",     "category": "Locations & Settings", "text": "Visiting a sex club or swingers' party, just to look, no participation required" },
+
+  { "id": "kink_bondage",  "category": "Kink-Adjacent", "text": "Light bondage (cuffs, rope, tied wrists)", "note": "Agree on a safe word and know how to release restraints quickly." },
+  { "id": "kink_impact",   "category": "Kink-Adjacent", "text": "Impact play (spanking, paddles)", "note": "Start light and check in often — bruising can happen faster than expected." },
+  { "id": "kink_sensory",  "category": "Kink-Adjacent", "text": "Sensory deprivation (blindfold plus earplugs, etc.)" },
+
+  { "id": "dig_sexting", "category": "Digital & Long-Distance", "text": "Sexting each other" },
+  { "id": "dig_video",   "category": "Digital & Long-Distance", "text": "Video calls with a sexual element while apart" },
+  { "id": "dig_content", "category": "Digital & Long-Distance", "text": "Recording content for each other's private use only" }
+]
