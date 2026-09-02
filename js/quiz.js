@@ -136,8 +136,6 @@ const backBtn = document.getElementById("back-btn");
 const nextBtn = document.getElementById("next-btn");
 
 function renderPage() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
   const page = pages[currentIndex];
   const totalPages = pages.length;
 
@@ -153,6 +151,17 @@ function renderPage() {
   backBtn.disabled = currentIndex === 0;
   updateNextState();
   nextBtn.textContent = currentIndex === totalPages - 1 ? "Finish" : "Next";
+
+  // On mobile, the tapped Next/Back button stays focused, and once the new
+  // (often shorter) content lays out, the browser scrolls that focused
+  // button back into view — which cancels a scroll-to-top called earlier.
+  // Blurring it and deferring a frame avoids that fight.
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
 
 function buildQuestionBlock(q) {
