@@ -31,18 +31,17 @@
 
     <div id="consent-panel" class="panel" style="display:none;">
       <h1>Before you start</h1>
-      <p class="lede">Six quick things:</p>
+      <p class="lede">Five quick things:</p>
       <ul class="consent-list">
         <li><strong>Yes</strong> means you actively want this.</li>
-        <li><strong>Open</strong> means genuinely neutral-to-curious — not obligation, not "I'll do it if they really want to." If you feel any reluctance, dread, or "ehh, not really," that's a <strong>No</strong>, not an Open.</li>
-        <li>The <strong>(fantasy)</strong> versions of Yes and Open are for things that appeal to you as an idea, but that you don't actually want to do in real life.</li>
-        <li><strong>No</strong> and <strong>Never</strong> both simply keep an item out of your shared results — your partner won't see which one you picked, or that you picked either.</li>
-        <li><strong>Never</strong> exists so a hard boundary never gets mistaken for something worth gently revisiting. Use it for anything that's a genuine line for you.</li>
-        <li>Answer for yourself, honestly — not for what you think will please your partner or make a better match.</li>
+        <li><strong>Open</strong> means genuinely neutral-to-curious, not "I'll do it if they really want to."  Any reluctance or dread is a <strong>No</strong>, not an Open.</li>
+        <li>The <strong>(fantasy)</strong> versions of Yes and Open are for fantasies only, you don't actually want to do this in real life.</li>
+        <li><strong>No</strong> means you're not interested.</li>
+        <li><strong>Never</strong> is a hard boundary that's a genuine relationship line for you.</li>
       </ul>
       <div class="consent-check">
         <input type="checkbox" id="consent-checkbox" />
-        <label for="consent-checkbox">I understand the difference between Open and Yes, and I'll answer honestly.</label>
+        <label for="consent-checkbox">I understand the options.</label>
       </div>
       <button id="begin-btn" class="btn btn-primary" disabled>Begin</button>
     </div>
@@ -51,7 +50,7 @@
       <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
       <div class="progress-label" id="progress-label"></div>
 
-      <div class="reminder-banner">Reminder: <strong>Open</strong> means curious, not obligated.</div>
+      <div class="reminder-banner">Reminder: <strong>Open</strong> means neutral-to-curious, not reluctance or obligation.</div>
 
       <div class="panel">
         <div class="category-tag" id="question-category"></div>
@@ -70,7 +69,7 @@
     <div id="done-panel" class="panel panel-raised" style="display:none;">
       <h2>All done</h2>
       <p class="lede" id="done-message"></p>
-      <label hidden>Your results link</label>
+      <label hidden></label>
       <input type="text" id="results-link" readonly hidden/>
       <div class="btn-row">
         <a id="results-go-link" class="btn btn-primary" href="#">See results</a>

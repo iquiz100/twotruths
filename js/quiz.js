@@ -147,7 +147,7 @@ function renderQuestion() {
     btn.dataset.tier = opt.tier;
     btn.dataset.code = opt.code;
     if (answers[q.id] === opt.code) btn.classList.add("selected");
-    btn.innerHTML = `<span class="label">${opt.label}</span><span class="sublabel">${opt.sublabel}</span>`;
+    btn.innerHTML = `<span class="label">${opt.label}</span>`;
     btn.addEventListener("click", () => selectAnswer(q.id, opt.code));
     answerGrid.appendChild(btn);
   });
