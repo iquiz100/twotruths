@@ -1,6 +1,7 @@
 import { db, doc, getDoc, updateDoc } from "./db.js";
 import { getParams, buildLink } from "./util.js";
 import { ANSWER_OPTIONS } from "./options.js";
+import { resolveText } from "./templating.js";
 
 const params = getParams();
 const sessionId = params.get("session");
@@ -39,6 +40,7 @@ let questions = [];
 let orderedQuestions = [];
 let currentIndex = 0;
 let answers = {};
+let nicknames = { A: "your partner", B: "your partner" };
 
 async function init() {
   let sessionSnap;
@@ -60,6 +62,7 @@ async function init() {
   }
 
   const data = sessionSnap.data();
+  nicknames = { A: data.nicknameA, B: data.nicknameB };
   if (data[`completed${Role}`]) {
     document.getElementById("already-done-results-link").href = buildLink("results.html", {
       session: sessionId,
@@ -129,7 +132,7 @@ function renderQuestion() {
   document.getElementById("progress-fill").style.width = `${(currentIndex / total) * 100}%`;
   document.getElementById("progress-label").textContent = `Question ${currentIndex + 1} of ${total}`;
   document.getElementById("question-category").textContent = q.category;
-  document.getElementById("question-text").textContent = q.text;
+  document.getElementById("question-text").textContent = resolveText(q, role, nicknames);
 
   const noteEl = document.getElementById("question-note");
   if (q.note) {

@@ -1,6 +1,7 @@
 import { db, doc, getDoc } from "./db.js";
 import { getParams } from "./util.js";
 import { classify, isHardLimit } from "./matching.js";
+import { resolveText } from "./templating.js";
 
 const params = getParams();
 const sessionId = params.get("session");
@@ -74,6 +75,7 @@ function render(data) {
   const theirAnswers = data[`answers${OtherRole}`] || {};
   const myNickname = data[`nickname${Role}`];
   const partnerNickname = data[`nickname${OtherRole}`];
+  const nicknames = { A: data.nicknameA, B: data.nicknameB };
 
   document.getElementById("results-intro").textContent =
     `Hi ${myNickname} \u2014 here's everything you and ${partnerNickname} are both open to, grouped by category.`;
@@ -95,11 +97,11 @@ function render(data) {
   for (const [category, items] of byCategory) {
     if (items.length === 0) continue;
     anyMatches = true;
-    body.appendChild(renderCategoryBlock(category, items));
+    body.appendChild(renderCategoryBlock(category, items, nicknames));
   }
   if (otherCategory.length > 0) {
     anyMatches = true;
-    body.appendChild(renderCategoryBlock("More", otherCategory));
+    body.appendChild(renderCategoryBlock("More", otherCategory, nicknames));
   }
 
   if (!anyMatches) {
@@ -127,7 +129,7 @@ function render(data) {
       row.className = "result-item";
       const span = document.createElement("span");
       span.className = "item-text";
-      span.textContent = q.text;
+      span.textContent = resolveText(q, role, nicknames);
       row.appendChild(span);
       section.appendChild(row);
     });
@@ -137,7 +139,7 @@ function render(data) {
   showOnly("results");
 }
 
-function renderCategoryBlock(category, items) {
+function renderCategoryBlock(category, items, nicknames) {
   const wrap = document.createElement("div");
   wrap.className = "result-category";
   const h3 = document.createElement("h3");
@@ -149,7 +151,7 @@ function renderCategoryBlock(category, items) {
     row.className = "result-item";
     const span = document.createElement("span");
     span.className = "item-text";
-    span.textContent = item.text;
+    span.textContent = resolveText(item, role, nicknames);
     const pill = document.createElement("span");
     pill.className = `pill ${item.match === "real" ? "pill-real" : "pill-fantasy"}`;
     pill.textContent = item.match === "real" ? "Yes" : "Fantasy";
